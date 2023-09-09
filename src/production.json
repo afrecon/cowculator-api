@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "hottenplot",
+  "private_key_id": "5a64df6561b26bade3ba8e9593201a935509d363",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCYN0LJj0iuYc9S\nPrcCbeUM6av2IwqNfMBkqnExQ+OfOnhw1eiW9gsUen5fJM/VaAn1UutQlj4j+DJG\ntspHnNRACQRVeZqGokXCqXyuGSRxP1SUsxn0AeWOxbiHM9LNF8xneCasoxSgQK63\ny0KjPXltDVWJLwH4afr5c9s8njgMFjSYyj1sj87c3qOqPyhy/qMr1fPVr2yC30K6\ngcHWI26nYy/K5NI7lxkt0cRiFUivKxlEMMsegsAAmhUPOKPztaCkWMluNGONWuxX\nYLCoAMESaZZoK+O3gHVCG7OnYYAQJvkTSvpVHz45CgIKtU9kDK6UK0VINr5ag0r9\n+coop8pdAgMBAAECggEAHrPOyd8X1uytp7Y0rc3CzKb5Y41P3JgUKnnimQBLklt1\n3bSX1JNOStQmV0SSk0YH9C7Efh2/7PtsEK1gAa/VdBEdiawcihmDHq+XEXrKyfjv\nM4soqfoT9odVIBhI5ctuFFS84EeIqoZBd5sNFuYYbvGoliIgMJ4X3GcNCp4TSgSE\nuXOwkUVZ1vaABDBIU7E+klEgC8tV+dFR4hjjZz8nxTuQbER0ggNpWqpjQJxyNaHk\nLFgXbf5nCWTTemAtr/towtZPSR8fXuyF4AzLDSBfzRmVNKulTA2ycM8qKVb32vio\npKuDRpEIKd3n0oHUvL2D7HrWOKtSnYxLDFJSjpG9VQKBgQDVXJsRT7+7yI9FZLMv\nBbifEUtCrsikeDEWX+AXGCxUzG4g96lJQYL48lniZ12kzGPSS7UwojdVFDed2YEQ\n01e5o8EIQ6q4F/4uPZaiOg1otQaW8l56019Gw/fjXtPMTXMBys/2ukAtJCVwV1U/\nAjO3rqALtlaGF3kY4umGPO7ElwKBgQC2ony2smXZeoR9YS0l6UNqdjoBhc6i6fwW\ntsyNl/BXh1j0ab96/Em0ZosdZPwaSde5CD3ea4be8wyZWSnkMI4SGz03QIebf/oY\ngoINJyPW1dsF2Jdv6FATn0hqgUYy61enx3EAvLyUu+x+8kN5lkQ9VMSN4T8veOEW\n4m4TrpkDKwKBgFP6XiKDNCEyQIn8p7YzV0ZspSW668gocpGu7OHKJvC9gf9B24S0\n31si8JP3QVlzBTsph0h8ILFBAt8DVBSOSrILrReWoqRQ9T+4CAkUNmDnF4/kF6Ha\nfl65FWGN2mlIdqLW8+HVzxq1ZnMAPNJPCJIcjmvtucKPjJ9p+KZYZ1ZDAoGAFPhh\nQ4UGZstHjTHsQi8fe4jpriUUDea5+E2y/QsWIKa80wuVXeS7/cfMb2qZ+9bAu1Ez\n8Wb9THox1yXCxp3AolmYVNDHAVbXe5r4ndQBrHhPtsMg2EufbjFa2kfPrKcTIIOo\n+QGy0Y0mYYklsD9NxJEIJJZZb/T8O2lyZDYnAZMCgYEAr/DUg62tr0IEl0Yeq+Lg\nOlah8V/cwG07UQXNpjBvSqPDI73MpQSuR5505Lr4QuHzBzz18hSQzWAIUZ7m3SUL\nSVMkZTp7yX2NXtQPDK7iEAxY/WMaECqMVnjM3S4Rf8dgt+IFS7Xj8IaodL9qr8GR\nH8R41vfXKR9MIkEtLv+CalI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-sttat@hottenplot.iam.gserviceaccount.com",
+  "client_id": "115186873622446002173",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-sttat%40hottenplot.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

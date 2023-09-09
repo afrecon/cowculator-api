@@ -1,0 +1,13 @@
+{
+  "check-coverage": true,
+  "extension": [
+    ".ts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/types/**/*",
+    "src/models/**/*"
+  ]
+}

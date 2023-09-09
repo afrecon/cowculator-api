@@ -1,0 +1,9 @@
+.env
+dist
+.idea
+coverage
+.nyc_output
+node_modules
+/node_modules
+.xlsx
+/src/plots.xlsx
