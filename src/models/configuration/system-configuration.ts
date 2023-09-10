@@ -6,7 +6,7 @@ interface SystemConfiguration {
    * The Weight Distribution
    */
   distributions:WeightDistributionConfig
-  yield: YieldRetailWeights
+  grades: YieldRetailWeights
 
 
 }

@@ -22,7 +22,7 @@ const configuration: AppConfiguration = {
       intestines: process.env.WIEGHT_MALA as unknown as number,
       shank: process.env.WIEGHT_SHANK as unknown as number
     },
-    yield: {
+    grades: {
       yeildGradeA: process.env.YIELD_A as unknown as number,
       yeildGradeB:process.env.YIELD_B as unknown as number,
       yeildGradeC: process.env.YIELD_C as unknown as number,

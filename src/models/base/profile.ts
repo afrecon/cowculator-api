@@ -9,12 +9,12 @@ export interface Profile {
     mode: UseCase
     country: string
     liveBuyingPrice: number
-    subscribed:boolean
+    subscribed:boolean 
     countryCode: string 
 }
 
  export enum UseCase{
     ButcherMode='Butcher',
-    SlaughterMode ='Slaughter',
+    Farmer ='Farmer',
     Custom='Custom'
 }
