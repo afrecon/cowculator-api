@@ -6,6 +6,7 @@ export interface Profile {
     dateRegistered: Date
     lastUpdated: Date
     currency: string
+    currencySymbol: string
     mode: UseCase
     country: string
     liveBuyingPrice: number

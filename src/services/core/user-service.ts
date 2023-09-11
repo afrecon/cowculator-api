@@ -19,12 +19,13 @@ class UserService {
       username,
       dateRegistered: new Date(),
       lastUpdated: new Date(),
-      currency: '',
+      currency: 'BWP',
       mode: UseCase.ButcherMode,
-      country: "",
+      country: "Botswana",
       liveBuyingPrice: 28,
       subscribed: true,
-      countryCode: ''
+      countryCode: 'BW',
+      currencySymbol:'P'
     }
 
     const profileConfig: ProfileConfig = {
