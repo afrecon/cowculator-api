@@ -23,6 +23,10 @@ class UserController extends Controller {
     console.info('Setting up routes for Auth Controller')
     this.router.post('/create', this.createAccount.bind(this))
 
+    this.router.post('/insights/butcher', this.generateButcherInsights.bind(this))
+
+    this.router.post('/insights/farmer', this.generateFarmerInsights.bind(this))
+
     this.router.get('/system-config', this.getSystemConfig.bind(this))
  
   }
@@ -55,6 +59,69 @@ class UserController extends Controller {
       .status(200)
     console.debug('Adding New Account', body)
     return this.service.createAccount(body.id,body.email, body.phone,body.username)
+      .then(sendResponse)
+      .catch(handleError)
+  }
+  public generateButcherInsights(request: Request, response: Response): Promise<Response> {
+    /**
+     * Get the Repo for the Objects
+     */
+    const body = request.body
+    const handleError = (message: any) => response.json({
+      success: false,
+      code: message.code as number ?? 403,
+      timestamp: new Date().getTime(),
+      errorMessage: message.message ?? message,
+      data: null
+
+    })
+      .status(message.code as number ?? 403)
+    /**
+     * Send the response back to the client
+     */
+    const sendResponse = (message: object) => response.json({
+      success: true,
+      code: 200,
+      timestamp: new Date().getTime(),
+      errorMessage: null,
+      data: message
+
+    })
+      .status(200)
+    console.debug('Generating Insights', body)
+    return this.service.generateButchersRecomendation(body)
+      .then(sendResponse)
+      .catch(handleError)
+  }
+
+  public generateFarmerInsights(request: Request, response: Response): Promise<Response> {
+    /**
+     * Get the Repo for the Objects
+     */
+    const body = request.body
+    const handleError = (message: any) => response.json({
+      success: false,
+      code: message.code as number ?? 403,
+      timestamp: new Date().getTime(),
+      errorMessage: message.message ?? message,
+      data: null
+
+    })
+      .status(message.code as number ?? 403)
+    /**
+     * Send the response back to the client
+     */
+    const sendResponse = (message: object) => response.json({
+      success: true,
+      code: 200,
+      timestamp: new Date().getTime(),
+      errorMessage: null,
+      data: message
+
+    })
+      .status(200)
+    console.debug('Generating Insights - Farmer', body)
+    return this.service.generateFarmerRecomendation(body)
       .then(sendResponse)
       .catch(handleError)
   }
