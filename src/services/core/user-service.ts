@@ -5,6 +5,7 @@ import { ProfileConfig } from '../../models/base/user-configs';
 import { configuration } from '../../configuration';
 import * as axios from 'axios';
 
+const AUTO_ACTIVATE_ACCOUNTS = process.env.AUTO_ACTIVATE_ACCOUNTS as unknown as boolean ?? false
 
 class UserService {
   private edenAI: axios.AxiosInstance
@@ -30,7 +31,7 @@ class UserService {
       mode: UseCase.ButcherMode,
       country: "Botswana",
       liveBuyingPrice: 28,
-      subscribed:subscribed ?? false,
+      subscribed:subscribed ?? AUTO_ACTIVATE_ACCOUNTS,
       countryCode: 'BW',
       currencySymbol: 'P'
     }
