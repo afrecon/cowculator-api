@@ -12,6 +12,9 @@ export interface Profile {
     liveBuyingPrice: number
     subscribed:boolean 
     countryCode: string 
+    payerId?:string
+    subscriptionId?:string
+    subscription?:string
 }
 
  export enum UseCase{

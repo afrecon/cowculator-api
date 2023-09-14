@@ -28,6 +28,7 @@ class UserController extends Controller {
     this.router.post('/insights/farmer', this.generateFarmerInsights.bind(this))
 
     this.router.get('/system-config', this.getSystemConfig.bind(this))
+    this.router.post('/subscription-callback', this.subscriptionCallback.bind(this))
  
   }
 
@@ -130,6 +131,42 @@ class UserController extends Controller {
     /**
      * Get the Repo for the Objects
      */ 
+    const handleError = (message: any) => response.json({
+      success: false,
+      code: message.code as number ?? 403,
+      timestamp: new Date().getTime(),
+      errorMessage: message.message ?? message,
+      data: null
+
+    })
+      .status(message.code as number ?? 403)
+    /**
+     * Send the response back to the client
+     */
+    const sendResponse = (message: object) => response.json({
+      success: true,
+      code: 200,
+      timestamp: new Date().getTime(),
+      errorMessage: null,
+      data: message
+
+    })
+      .status(200)
+    
+      const execute = async()=>{
+        return configuration.system
+      }
+    return execute()
+      .then(sendResponse)
+      .catch(handleError)
+  }
+  public subscriptionCallback(request: Request, response: Response): Promise<Response> {
+    /**
+     * Get the Repo for the Objects
+     */ 
+
+    const body = request.body;
+    console.log('REC_CAT', body)
     const handleError = (message: any) => response.json({
       success: false,
       code: message.code as number ?? 403,
