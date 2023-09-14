@@ -18,7 +18,7 @@ class UserService {
     })
   }
 
-  public async createAccount(id: string, emailAddress: string, phoneNumber: string, username: string) {
+  public async createAccount(id: string, emailAddress: string, phoneNumber: string, username: string, subscribed?:boolean) {
     const user: Profile = {
       id,
       phoneNumber,
@@ -30,7 +30,7 @@ class UserService {
       mode: UseCase.ButcherMode,
       country: "Botswana",
       liveBuyingPrice: 28,
-      subscribed: true,
+      subscribed:subscribed ?? false,
       countryCode: 'BW',
       currencySymbol: 'P'
     }
