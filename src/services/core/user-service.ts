@@ -1,14 +1,16 @@
 
-import { firestore, } from 'firebase-admin';
+import {  firestore, } from 'firebase-admin';
 import { Profile, UseCase } from '../../models/base/profile';
 import { ProfileConfig } from '../../models/base/user-configs';
 import { configuration } from '../../configuration';
 import * as axios from 'axios';
+import { PredictionResult } from '../../models/ml/prediction';
 
 const AUTO_ACTIVATE_ACCOUNTS = process.env.AUTO_ACTIVATE_ACCOUNTS as unknown as boolean ?? false
-
+const ROBO_API_KEY = process.env.ROBO_API_KEY ??'3oBQpkdXrgvJxf7AtUnm'
 class UserService {
   private edenAI: axios.AxiosInstance
+  private roboAPI: axios.AxiosInstance
   constructor(protected firestore: firestore.Firestore) {
     console.debug('User Service Started')
     this.edenAI = axios.default.create({
@@ -16,6 +18,16 @@ class UserService {
       headers: {
         Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODZiZGY2MzItMGNhNi00MmRiLWE3MTMtYjU5MWVhMWZjZTZlIiwidHlwZSI6ImFwaV90b2tlbiJ9.V-LX15qVeH_5F2lfPtOv0-wkHd51C6TPo_2w1oI1cCU",
       }
+    })
+
+    this.roboAPI= axios.default.create({
+      baseURL: 'https://classify.roboflow.com',
+      params: {
+        api_key: ROBO_API_KEY
+    },
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+  }
     })
   }
 
@@ -158,6 +170,58 @@ class UserService {
 
   }
 
+  public async detectDesease(userId:string, image:any){
+    console.log('Detecting deseases',userId,image) 
+    const execute = async()=>{
+
+      const buffer = image.data as Buffer
+      return this.roboAPI.post('/a-simple-model/1',
+        buffer.toString('base64')
+      ).then((res:axios.AxiosResponse<PredictionResult>)=>{
+        return res.data
+      }).catch((e)=>{
+        console.log('ERR',e)
+        throw e.response.data
+      })
+    } 
+
+    const formatResults =async(res:PredictionResult)=>{
+      var results = []
+      for(var i=0;i<res.predictions.length;i++){
+      
+        const item = res.predictions[i]
+        var name = this.getDeseaseName(item.class)
+        results.push({
+          name,
+          confidence:item.confidence
+        })
+       
+      }
+
+    var status = this.getDeseaseName(res.top)
+    return {
+      status,
+      confidence:res.confidence,
+      results
+    }
+
+    }
+
+    return execute().then(formatResults)
+  }
+
+private getDeseaseName(nm:string){
+  switch(nm){
+    case 'FMD':
+    return "Foot & Mouth Disease"
+    case 'LSD':
+    return "Lumpy Skin Disease"
+    case 'IBK':
+    return "Pink Eye"
+    default:
+    return "No Visible Issues"
+  }
+}
 
 
 
