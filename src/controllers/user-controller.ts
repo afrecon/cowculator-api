@@ -33,7 +33,52 @@ class UserController extends Controller {
     this.router.get('/system-config', this.getSystemConfig.bind(this))
     this.router.post('/subscription-callback', this.subscriptionCallback.bind(this))
  
+    this.router.post('/subscriptions/callback', this.revenueCatHandler.bind(this))
   }
+  public revenueCatHandler(request: Request, response: Response) {
+    /**
+     * REALPAY ONLY
+     */
+    var payload = request.body
+
+    const handleError = (message: any) => response.json({
+      success: false,
+      code: message.code as number ?? 403,
+      timestamp: new Date().getTime(),
+      errorMessage: message.message ?? message,
+      data: null
+
+    })
+      .status(message.code as number ?? 403)
+    /**
+     * Send the response back to the client
+     */
+    const sendResponse = (message: any): Response => {
+      // Update the redirect URL as per your requirement
+      return response.json({
+        success: true,
+        code: 200,
+        timestamp: new Date().getTime(),
+        errorMessage: null,
+        data: message
+
+      })
+        .status(200)
+    };
+
+    const evaluate = async () => {
+      console.log('INCOMING PAYLOAD', payload)
+      await this.service.handleSubscriptionUpdate(payload)
+      return {
+        message: 'received'
+      }
+    }
+    return evaluate()
+      .then(sendResponse)
+      .catch(handleError)
+
+  }
+
   public detectDesease(request: any, response: Response): Promise<Response> {
     /**
      * Get the Repo for the Objects
@@ -67,6 +112,7 @@ class UserController extends Controller {
       .then(sendResponse)
       .catch(handleError)
   }
+
   public detectBreed(request: any, response: Response): Promise<Response> {
     /**
      * Get the Repo for the Objects

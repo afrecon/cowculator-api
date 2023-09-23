@@ -5,6 +5,7 @@ import { ProfileConfig } from '../../models/base/user-configs';
 import { configuration } from '../../configuration';
 import * as axios from 'axios';
 import { PredictionResult } from '../../models/ml/prediction';
+import { RevenueCatPayload } from '../../models/revenuecat/revenuecat-event';
 
 const AUTO_ACTIVATE_ACCOUNTS = process.env.AUTO_ACTIVATE_ACCOUNTS as unknown as boolean ?? false
 const ROBO_API_KEY = process.env.ROBO_API_KEY ?? '3oBQpkdXrgvJxf7AtUnm'
@@ -266,7 +267,63 @@ class UserService {
 
     return execute().then(formatResults)
   }
+  public async handleSubscriptionUpdate(payload: RevenueCatPayload) {
+    const event = payload.event;
 
+    const getAccount = async () => {
+      var res = await this.firestore.collection('users').where('payerId', '==', event.original_app_user_id).limit(1).get()
+      if (res.empty) {
+        throw {
+          code: 404,
+          message: 'Unable to identify user'
+        }
+      }
+      return res.docs[0].data() as Profile
+    }
+
+    const evaluatePurchase = async (client: Profile) => {
+      let error = 'SUCCESS'
+      client.subscriptionId = event.transaction_id
+      switch (event.type) {
+        case 'RENEWAL':
+          client.subscribed = true;
+         // client.subscriptionEndDate = event.event_timestamp_ms
+          break;
+        case 'INITIAL_PURCHASE':
+          client.subscribed = true;
+        //  client.subscriptionEndDate = event.event_timestamp_ms
+          break;
+        case 'CANCELLATION':
+          client.subscribed = false;
+          error = event.cancel_reason;
+        //  client.subscriptionEndDate = moment().utc().valueOf()
+          break;
+        case 'EXPIRATION':
+          client.subscribed = false;
+      //    client.subscriptionEndDate = moment().utc().valueOf()
+          error = event.expiration_reason;
+          break;
+        default:
+          error = 'ERROR'
+          break
+      }
+      const subscription = {
+        id: Buffer.from(event.product_id + ':' + client.id).toString('base64'),
+        clientId: client.id,
+        active: client.subscribed,
+        status: error,
+        subscription: event
+      }
+      await this.firestore.collection('subscriptions').doc(subscription.id).set(subscription)
+      await this.firestore.collection('users').doc(client.id).update({ subscribed: client.subscribed, subscriptionId: client.subscriptionId })
+      return subscription
+    }
+
+
+    return getAccount().then(evaluatePurchase)
+
+
+  }
   private getDeseaseName(nm: string) {
     switch (nm) {
       case 'FMD':
