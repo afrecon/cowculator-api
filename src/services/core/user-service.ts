@@ -9,6 +9,7 @@ import { RevenueCatPayload } from '../../models/revenuecat/revenuecat-event';
 
 const AUTO_ACTIVATE_ACCOUNTS = process.env.AUTO_ACTIVATE_ACCOUNTS as unknown as boolean ?? false
 const ROBO_API_KEY = process.env.ROBO_API_KEY ?? '3oBQpkdXrgvJxf7AtUnm'
+const EDEN_API_KEY = process.env.ROBO_API_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODZiZGY2MzItMGNhNi00MmRiLWE3MTMtYjU5MWVhMWZjZTZlIiwidHlwZSI6ImFwaV90b2tlbiJ9.V-LX15qVeH_5F2lfPtOv0-wkHd51C6TPo_2w1oI1cCU'
 class UserService {
   private edenAI: axios.AxiosInstance
   private roboAPI: axios.AxiosInstance
@@ -17,7 +18,7 @@ class UserService {
     this.edenAI = axios.default.create({
       baseURL: 'https://api.edenai.run',
       headers: {
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODZiZGY2MzItMGNhNi00MmRiLWE3MTMtYjU5MWVhMWZjZTZlIiwidHlwZSI6ImFwaV90b2tlbiJ9.V-LX15qVeH_5F2lfPtOv0-wkHd51C6TPo_2w1oI1cCU",
+        Authorization: `Bearer ${EDEN_API_KEY}`,
       }
     })
 
